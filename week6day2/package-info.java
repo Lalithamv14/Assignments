@@ -1,1 +1,0 @@
-package week.week6day2;
