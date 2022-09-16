@@ -34,32 +34,40 @@ public class NewProposal {
 		shadow.findElementByXPath("//div[@id='all']").click();
 		prop.sendKeys(Keys.ENTER);
 
-//4. Click- new  and  fill mandatory fields and click 'Submit' Button.
-		driver.switchTo().defaultContent();
-		WebElement eleframe=shadow.findElementByXPath(("//iframe[@title='Main Content']"));
-        driver.switchTo().frame(eleframe);
-		driver.findElement(By.id("sysverb_new")).click();
-		driver.findElement(By.id("std_change_proposal.short_description")).sendKeys("testing");
-		driver.findElement(By.id("sysverb_insert")).click();
+	//4. Click- new  and  fill mandatory fields and click 'Submit' Button.
+			driver.switchTo().defaultContent();
+			WebElement eleframe=shadow.findElementByXPath(("//iframe[@title='Main Content']"));
+	        driver.switchTo().frame(eleframe);
+			driver.findElement(By.id("sysverb_new")).click();
+			driver.findElement(By.xpath("//span[@class='icon icon-lightbulb']")).click();
+			Set<String>windowHandles=driver.getWindowHandles();
+			List<String>swi=new ArrayList<String>(windowHandles);
+			driver.switchTo().window(swi.get(1));
+			driver.findElement(By.linkText("Issue with a web page")).click();
+			driver.switchTo().window(swi.get(0));
+			WebElement eleframe1=shadow.findElementByXPath(("//iframe[@title='Main Content']"));
+	        driver.switchTo().frame(eleframe1);
+			
+			driver.findElement(By.id("sysverb_insert")).click();
+			
+	//5. Verify the successful creation of new Proposal"
+			driver.switchTo().defaultContent();
+			WebElement eleframe2=shadow.findElementByXPath(("//iframe[@title='Main Content']"));
+	        driver.switchTo().frame(eleframe2);
+		    driver.findElement(By.xpath("//input[@class='form-control']")).sendKeys("Issue with a web page",Keys.ENTER);
+		    String text=driver.findElement(By.xpath("(//td[text()='Issue with a web page'])[2]")).getText();
+		    System.out.println("New Proposal : " +text);
+		    if(text.contains("Issue with a web page"))
+		    {
+		    	System.out.println("Proposal " +text+ " is created newly");
+		    }
+		    else
+		    {
+		    	System.out.println("Proposal " +text+ "is not created newly");
+		    }
+	        Thread.sleep(2000);
 		
-//5. Verify the successful creation of new Proposal"
-		driver.switchTo().defaultContent();
-		WebElement eleframe2=shadow.findElementByXPath(("//iframe[@title='Main Content']"));
-        driver.switchTo().frame(eleframe2);
-	    driver.findElement(By.xpath("//input[@class='form-control']")).sendKeys("testing",Keys.ENTER);
-	    String text=driver.findElement(By.xpath("(//td[@class='vt'])[2]")).getText();
-	    System.out.println("New Proposal : " +text);
-	    if(text.contains("Selenium Automation"))
-	    {
-	    	System.out.println("Proposal " +text+ " is created newly");
-	    }
-	    else
-	    {
-	    	System.out.println("Proposal " +text+ "is not created newly");
-	    }
-        Thread.sleep(2000);
-        driver.close();
-
+	}
 	}
 
-}
+	
