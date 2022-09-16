@@ -39,14 +39,14 @@ public class NewProposal {
 		WebElement eleframe=shadow.findElementByXPath(("//iframe[@title='Main Content']"));
         driver.switchTo().frame(eleframe);
 		driver.findElement(By.id("sysverb_new")).click();
-		driver.findElement(By.id("std_change_proposal.short_description")).sendKeys("Selenium Automation");
+		driver.findElement(By.id("std_change_proposal.short_description")).sendKeys("testing");
 		driver.findElement(By.id("sysverb_insert")).click();
 		
 //5. Verify the successful creation of new Proposal"
 		driver.switchTo().defaultContent();
 		WebElement eleframe2=shadow.findElementByXPath(("//iframe[@title='Main Content']"));
         driver.switchTo().frame(eleframe2);
-	    driver.findElement(By.xpath("//input[@class='form-control']")).sendKeys("Selenium Automation",Keys.ENTER);
+	    driver.findElement(By.xpath("//input[@class='form-control']")).sendKeys("testing",Keys.ENTER);
 	    String text=driver.findElement(By.xpath("(//td[@class='vt'])[2]")).getText();
 	    System.out.println("New Proposal : " +text);
 	    if(text.contains("Selenium Automation"))
